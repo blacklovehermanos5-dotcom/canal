@@ -34,8 +34,9 @@
 ## Automação
 
 ```bash
+./automacao/animar_still.sh quadro-07.png 4 --movimento zoom-in   # movimento sem créditos
 ./automacao/cortar_short.sh capitulo-07.mp4 2:14 2:38 --texto "ELA SABIA?"
-python3 automacao/gerar_metadados.py serie-frutas/roteiros/cap-07.md
+python3 automacao/gerar_metadados.py serie-frutas/roteiros/cap-01-a-chegada.md
 python3 automacao/gerar_thumbnail.py quadro.png "ELA SABIA" --cor roxo
 ```
 

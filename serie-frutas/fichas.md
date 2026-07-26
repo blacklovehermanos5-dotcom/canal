@@ -20,27 +20,44 @@ Os prompts exatos que geraram estas fichas estão em `prompts.md`. Para regerar 
 
 ## Cenários
 
-| Cenário | job_id | Status |
-|---|---|---|
-| Praça da vila | | ⬜ a gerar |
-| Quitanda da Dona Melancia | | ⬜ a gerar |
-| Casarão do Coronel | | ⬜ a gerar |
-| Beco do Limão | | ⬜ a gerar |
+Placas de fundo vazias (sem personagem), `z_image`, 16:9, 2048x1152. Duas variações cada.
+
+| Cenário | Variação A | Variação B | Status |
+|---|---|---|---|
+| Praça da vila | `9659cb2f-994f-4818-a220-e42a4c6c94ab` | `c533e388-14c1-4d3b-8caa-e06659c448ad` | ⬜ escolher |
+| Quitanda da Dona Melancia | `50fa373f-8f71-4c2f-ac94-bd4bcd25b776` | `2e96cccf-0b21-447d-947f-2e9aa256fe8b` | ⬜ escolher |
+| Casarão do Coronel | `71295f60-18e4-4581-94eb-31d8b2bfda47` | `684a5b81-b3e7-4f3b-b6ce-ac55f94cdb55` | ⬜ escolher |
+| Beco do Limão | `9d34f8db-50a1-4db7-876a-981ce9dadc66` | `b994488d-7425-489a-9392-b7425053fb0f` | ⬜ escolher |
 
 ## Áudio
 
-| Item | id | Status |
+**As ferramentas de geração disponíveis nesta sessão fazem apenas voz (text-to-speech). Não há geração de música nem de efeitos sonoros.** A trilha e os efeitos precisam vir de outra fonte:
+
+- Biblioteca de áudio do YouTube Studio (gratuita e livre de Content ID)
+- Bibliotecas licenciadas (Epidemic Sound, Artlist, Uppbeat)
+- Composição própria
+
+| Item | Origem | Status |
 |---|---|---|
-| Tema de abertura (5s) | | ⬜ a gerar |
-| Leitmotiv suspense | | ⬜ a gerar |
-| Leitmotiv romance | | ⬜ a gerar |
-| Leitmotiv revelação | | ⬜ a gerar |
+| Tema de abertura (5s) | biblioteca licenciada | ⬜ escolher |
+| Leitmotiv suspense | biblioteca licenciada | ⬜ escolher |
+| Leitmotiv romance | biblioteca licenciada | ⬜ escolher |
+| Leitmotiv revelação | biblioteca licenciada | ⬜ escolher |
+| Vozes dos 7 personagens | TTS (gerável aqui) | ⬜ a gerar |
 
 ## Orçamento
 
-Plano gratuito, saldo em 26/07: **7,75 créditos** (as 13 fichas custaram ~2,0).
+Saldo em 26/07 após gerar fichas e cenários: **46,55 créditos**.
 
-Para dimensionar: um capítulo de 25 planos em `z_image` custa ~4 créditos só nas imagens, sem contar animação e voz. O saldo atual cobre **um capítulo**. Rodar a temporada exige plano pago.
+Custos medidos (via `get_cost`, não estimados):
+
+| Item | Créditos |
+|---|---|
+| Imagem `z_image` | 0,15 |
+| Imagem `nano_banana_pro` | 2,00 |
+| **Vídeo `kling3_0_turbo`, 5s** | **7,50** |
+
+O vídeo custa **50x uma imagem parada**. É o número que decide a viabilidade da série — ver `producao-ia.md`.
 
 ## Testes de estilo já feitos
 

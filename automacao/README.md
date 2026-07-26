@@ -51,11 +51,23 @@ Corta o trecho, converte para 9:16 em 1080x1920 e queima a legenda. Recusa trech
 ### 4. Descrição com capítulos
 
 ```bash
-python3 automacao/gerar_metadados.py roteiros/dia-03-roleplay-medico.md \
-  --titulo "Virei MÉDICO(A) por um dia! 🩺 Consultório dos bichinhos"
+python3 automacao/gerar_metadados.py serie-frutas/roteiros/cap-01-a-chegada.md \
+  --titulo "CHEGOU UM ESTRANHO NA VILA 😳 | A Vila — Capítulo 1"
 ```
 
-Lê os timecodes da tabela do roteiro e devolve a descrição pronta para colar: capítulos, aviso de afiliado, hashtags e a checagem de publicação. Avisa se o título passar de 60 caracteres.
+Lê os timecodes da tabela do roteiro e devolve a descrição pronta para colar: capítulos, chamada de comentário, hashtags e a checagem de publicação. Avisa se o título passar de 60 caracteres.
+
+Usa o molde adulto por padrão. Para o formato antigo: `--publico infantil`.
+
+### 5. Movimento sem gastar créditos
+
+```bash
+./automacao/animar_still.sh quadro-07.png 4 --movimento zoom-in
+```
+
+Pan/zoom (Ken Burns) sobre um quadro parado. **Substitui a geração de vídeo na maior parte dos planos**: um clipe de 5s por IA custa ~7,5 créditos, isto custa zero. No gênero novela, o close de reação com zoom lento é exatamente o esperado.
+
+Movimentos: `zoom-in`, `zoom-out`, `zoom-in-rapido`, `pan-direita`, `pan-esquerda`.
 
 ## Rotina diária com os scripts
 
@@ -75,9 +87,12 @@ O ganho real está nas três últimas linhas: o que costuma levar 30-40 minutos 
 | Script | Verificado |
 |---|---|
 | `gerar_roteiro.py` | ✅ executado, saída conferida |
-| `gerar_metadados.py` | ✅ executado nos roteiros reais |
+| `gerar_metadados.py` | ✅ executado nos roteiros reais, nos dois modos |
 | `gerar_thumbnail.py` | ✅ executado, imagens inspecionadas |
-| `cortar_short.sh` | ⚠️ lógica testada com `ffmpeg` simulado — o filtro e a codificação **não** foram rodados de verdade. Teste em um vídeo curto antes de confiar nele. |
+| `cortar_short.sh` | ⚠️ lógica testada com `ffmpeg` simulado — o filtro e a codificação **não** foram rodados de verdade |
+| `animar_still.sh` | ⚠️ idem: argumentos e validação testados, o filtro `zoompan` **não** foi executado |
+
+Os dois scripts de `ffmpeg` foram escritos sem `ffmpeg` disponível no ambiente. Teste cada um em um arquivo curto antes de usar em produção.
 
 ## Escopo destes scripts
 

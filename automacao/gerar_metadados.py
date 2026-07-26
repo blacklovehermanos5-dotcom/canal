@@ -17,7 +17,15 @@ from pathlib import Path
 LINHA_TABELA = re.compile(r"^\|\s*(\d+:\d{2})-\d+:\d{2}\s*\|([^|]+)\|")
 LIMITE_TITULO = 60
 
-RODAPE = """
+RODAPES = {
+    "adulto": """
+🔔 Capítulo novo TODO DIA! Se inscreva pra não perder a novela.
+
+💬 Quem você acha que está mentindo? Comenta aí embaixo.
+
+📺 Assista desde o capítulo 1: [LINK DA PLAYLIST]
+""",
+    "infantil": """
 🔔 Vídeo novo TODO DIA! Se inscreva pra não perder.
 
 👶 Este é um canal de conteúdo infantil, feito para ser assistido
@@ -26,7 +34,35 @@ com o acompanhamento de um adulto responsável.
 🛒 Brinquedos que aparecem no vídeo:
 [LINKS] — links de afiliado: podemos receber comissão pelas compras,
 sem custo adicional para você.
-"""
+""",
+}
+
+ABERTURAS = {
+    "adulto": [
+        "[Frase 1: o que acontece neste capítulo, sem entregar o gancho]",
+        "[Frase 2: a pergunta que o capítulo deixa no ar]",
+    ],
+    "infantil": [
+        "[Frase 1: o que acontece no vídeo, com a palavra-chave principal]",
+        "[Frase 2: o que a criança vai ver ou aprender]",
+    ],
+}
+
+CHECKLISTS = {
+    "adulto": [
+        "[ ] NÃO marcado como \"feito para crianças\"",
+        "[ ] Capítulo avança a trama (não é intercambiável)",
+        "[ ] Personagens consistentes com as fichas (aparência e voz)",
+        "[ ] Trilha e efeitos licenciados",
+        "[ ] Declaração de conteúdo sintético avaliada",
+    ],
+    "infantil": [
+        "[ ] Marcado como \"feito para crianças\"",
+        "[ ] Links de afiliado com aviso, ou o bloco 🛒 removido",
+    ],
+}
+
+BLOCOS_IGNORADOS = {"intro", "vinheta"}
 
 
 def limpar(texto):
@@ -43,8 +79,8 @@ def extrair_capitulos(conteudo):
         if not m:
             continue
         tempo, bloco = m.group(1), limpar(m.group(2))
-        if bloco.lower() == "intro":
-            continue  # capítulo de 10s só polui a lista
+        if bloco.lower() in BLOCOS_IGNORADOS:
+            continue  # capítulo de 5-10s só polui a lista
         capitulos.append((tempo, bloco))
     return capitulos
 
@@ -81,6 +117,12 @@ def main():
     p = argparse.ArgumentParser(description="Gera a descrição do YouTube a partir do roteiro")
     p.add_argument("roteiro", help="caminho do arquivo de roteiro (.md)")
     p.add_argument("--titulo", help="título do vídeo (se já tiver decidido)")
+    p.add_argument(
+        "--publico",
+        default="adulto",
+        choices=["adulto", "infantil"],
+        help="molde da descrição (padrão: adulto, o formato atual do canal)",
+    )
     args = p.parse_args()
 
     caminho = Path(args.roteiro)
@@ -111,9 +153,9 @@ def main():
         print("(defina com --titulo) — fórmula: AÇÃO em caixa alta + tema + emoji")
 
     print("\n--- DESCRIÇÃO (copiar daqui) ---")
-    print("[Frase 1: o que acontece no vídeo, com a palavra-chave principal]")
-    print("[Frase 2: o que a criança vai ver ou aprender]")
-    print(RODAPE.rstrip())
+    for linha in ABERTURAS[args.publico]:
+        print(linha)
+    print(RODAPES[args.publico].rstrip())
     print("\n⏱️ CAPÍTULOS")
     for tempo, bloco in capitulos:
         print(f"{tempo} {bloco}")
@@ -124,8 +166,8 @@ def main():
     print(tags or "(não encontradas no roteiro)")
 
     print("\n--- ANTES DE PUBLICAR ---")
-    print("[ ] Marcado como \"feito para crianças\"")
-    print("[ ] Links de afiliado com aviso, ou o bloco 🛒 removido")
+    for item in CHECKLISTS[args.publico]:
+        print(item)
     print("[ ] Thumbnail no padrão (automacao/gerar_thumbnail.py)")
     print("[ ] Short cortado (automacao/cortar_short.sh)")
 

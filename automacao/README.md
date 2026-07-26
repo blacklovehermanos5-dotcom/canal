@@ -79,14 +79,22 @@ O ganho real está nas três últimas linhas: o que costuma levar 30-40 minutos 
 | `gerar_thumbnail.py` | ✅ executado, imagens inspecionadas |
 | `cortar_short.sh` | ⚠️ lógica testada com `ffmpeg` simulado — o filtro e a codificação **não** foram rodados de verdade. Teste em um vídeo curto antes de confiar nele. |
 
-## O que NÃO automatizar
+## Escopo destes scripts
 
-Existe a tentação de gerar o vídeo inteiro com IA — voz sintética, personagem animado, roteiro automático, publicação em massa. Para este canal, isso é um caminho ruim, por três motivos concretos:
+Foram escritos para o formato antigo (canal infantil com criança real). Com a virada para a [série animada de frutas](../serie-frutas/plano.md), o que continua servindo:
 
-1. **É exatamente o alvo da política do YouTube** contra conteúdo infantil repetitivo e produzido em massa, sem valor educativo ou narrativo. É o tipo de canal que perde monetização em bloco, não vídeo a vídeo.
-2. **Conteúdo sintético exige divulgação.** Vídeo com voz ou imagem gerada realista precisa ser declarado no upload, e conteúdo infantil recebe escrutínio maior.
-3. **O ativo do canal é a criança real.** O vínculo que faz uma criança assistir ao mesmo canal todo dia vem de reconhecer uma pessoa. Substituir isso por avatar sintético destrói justamente o que diferencia o canal.
+| Script | Serve na série? |
+|---|---|
+| `cortar_short.sh` | ✅ igual — o Short é cortado do mesmo jeito |
+| `gerar_metadados.py` | ✅ igual — basta o roteiro ter a tabela `## Estrutura` |
+| `gerar_thumbnail.py` | ✅ trocando a paleta pelas cores da série e usando um quadro do capítulo no lugar da foto |
+| `gerar_roteiro.py` | ❌ os formatos são de vídeo gravado; a série usa a estrutura de `serie-frutas/plano.md` |
 
-Uso de IA que faz sentido aqui, sem esses riscos: **vinheta de 5s** animada, **música de fundo** instrumental, **efeitos sonoros**, **imagens de apoio** para os blocos educativos (uma ilustração de animal, uma forma geométrica). Nada disso envolve gerar a criança nem simular o conteúdo principal.
+## O limite que continua valendo
 
-O limite prático: automatize a **embalagem e a distribuição**, nunca a **atuação e a autoria**.
+A série é gerada por IA de ponta a ponta — é o próprio gênero. Mas há uma linha que separa uma série de um lote de vídeos, e ela decide a monetização:
+
+- **Automatize a execução**: quadros, animação, vozes, trilha, corte, metadados.
+- **Não automatize a autoria**: enredo, personagens, ritmo e revisão final são seus.
+
+Um roteiro gerado e publicado sem revisão, com personagens diferentes a cada vídeo, cai na política de conteúdo inautêntico do YouTube e derruba o canal inteiro, não um vídeo. O detalhamento está em [`serie-frutas/compliance.md`](../serie-frutas/compliance.md).

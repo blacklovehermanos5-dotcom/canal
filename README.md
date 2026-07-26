@@ -1,61 +1,50 @@
-# Canal infantil — material de produção
+# Canal — material de produção
 
-Repositório com o plano, os roteiros e o kit de produção do canal.
+> **Direção atual: série animada de frutas para público adulto** (`serie-frutas/`).
+> O material de canal infantil (`agosto`, `roteiros/`, `producao/`) fica no
+> repositório como histórico — parte dele ainda serve, ver o plano.
 
 ## Estrutura
 
 | Arquivo | O que é |
 |---|---|
-| [`agosto`](agosto) | Plano de 30 dias: nicho, estrutura do canal, calendário completo e caminhos de monetização |
-| [`roteiros/`](roteiros) | Roteiros bloco a bloco dos vídeos, com timecodes, planos de câmera, corte do Short e metadados |
-| [`producao/`](producao) | Kit operacional: checklist de gravação, metadados, thumbnail, compliance e controle de postagem |
+| [`serie-frutas/`](serie-frutas/plano.md) | **Formato atual**: elenco, arco de 30 dias, pipeline de IA, prompts e compliance |
 | [`automacao/`](automacao) | Scripts que geram roteiro, thumbnail, Short e descrição |
+| [`agosto`](agosto) | *(histórico)* Plano de 30 dias do canal infantil |
+| [`roteiros/`](roteiros) | *(histórico)* Roteiros dos vídeos com criança real |
+| [`producao/`](producao) | *(histórico)* Kit de gravação; o controle de postagem ainda serve |
 
-## Roteiros prontos
+## Série de frutas — comece por aqui
 
-- [Dia 1 — Apresentação do canal](roteiros/dia-01-apresentacao.md)
-- [Dia 2 — Unboxing de brinquedo novo](roteiros/dia-02-unboxing.md)
-- [Dia 3 — Roleplay: médico(a)](roteiros/dia-03-roleplay-medico.md)
-- [Dia 4 — Desafio: tente não rir](roteiros/dia-04-desafio-nao-rir.md)
-- [Dia 5 — Aprendendo cores e números](roteiros/dia-05-cores-numeros.md)
-- [Dia 6 — Roleplay: mercado de mentirinha](roteiros/dia-06-roleplay-mercado.md)
-- [Dia 7 — Vlog: passeio no parque](roteiros/dia-07-vlog-parque.md)
+- [Plano da série](serie-frutas/plano.md) — elenco, estrutura do capítulo, arco de 30 dias
+- [Prompts](serie-frutas/prompts.md) — bíblia visual e as regras de consistência
+- [Pipeline de produção](serie-frutas/producao-ia.md) — as 6 etapas de um capítulo, com custos
+- [Compliance](serie-frutas/compliance.md) — política de conteúdo inautêntico e adequação para anunciantes
+- [Fichas](serie-frutas/fichas.md) — registro dos personagens, vozes e cenários aprovados
 
-Dias 8 a 30 estão definidos no calendário do arquivo `agosto`, aguardando roteirização.
+## Ciclo de um capítulo
 
-## Kit de produção
-
-- [Checklist de gravação](producao/checklist-gravacao.md) — antes, durante e depois de cada vídeo
-- [Modelo de metadados](producao/modelo-metadados.md) — fórmula de título, descrição e tags
-- [Padrão de thumbnail](producao/padrao-thumbnail.md) — a fórmula visual fixa do canal
-- [**Compliance**](producao/compliance.md) — regras de conteúdo infantil, COPPA, segurança e limites de monetização
-- [Controle de postagem](producao/controle-postagem.md) — planilha de acompanhamento e revisão semanal
-
-## Leia isto antes de gravar o dia 1
-
-Dois pontos do `compliance.md` afetam o plano inteiro:
-
-1. **Vídeo marcado como "feito para crianças" perde comentários, anúncios personalizados, telas finais e membros.** O RPM cai bastante, o que desloca a monetização do AdSense para afiliados e patrocínio direto.
-2. **Criança que atua regularmente em conteúdo monetizado pode exigir alvará judicial no Brasil**, com regras de jornada e de reserva de parte dos ganhos. Vale consultar antes de a receita começar.
+1. Escrever o roteiro na estrutura de [`plano.md`](serie-frutas/plano.md): cold open → cena A → cena B → cena C → gancho
+2. Gerar os quadros-chave usando as fichas como referência ([`prompts.md`](serie-frutas/prompts.md))
+3. Animar os planos que valem a pena; o resto fica parado com voz por cima
+4. Montar com as vozes fixas, os leitmotivs e os efeitos da temporada
+5. Cortar o Short e montar a descrição com os scripts abaixo
+6. Publicar no mesmo horário e preencher o [controle de postagem](producao/controle-postagem.md)
 
 ## Automação
 
-Os scripts em [`automacao/`](automacao/README.md) cobrem a parte repetitiva:
-
 ```bash
-python3 automacao/gerar_roteiro.py 12                    # esqueleto do roteiro
-./automacao/cortar_short.sh video.mp4 3:45 4:10          # Short em 9:16
-python3 automacao/gerar_thumbnail.py foto.jpg "TEXTO"    # thumbnail 1280x720
-python3 automacao/gerar_metadados.py roteiros/dia-12*.md # descrição com capítulos
+./automacao/cortar_short.sh capitulo-07.mp4 2:14 2:38 --texto "ELA SABIA?"
+python3 automacao/gerar_metadados.py serie-frutas/roteiros/cap-07.md
+python3 automacao/gerar_thumbnail.py quadro.png "ELA SABIA" --cor roxo
 ```
 
-O que **não** automatizar (e por quê) está no fim do [README da automação](automacao/README.md#o-que-não-automatizar) — resumo: automatize a embalagem, nunca a atuação.
+Detalhes e limitações em [`automacao/README.md`](automacao/README.md). O `gerar_roteiro.py` e o `checklist-gravacao.md` foram feitos para o formato antigo, com gravação real, e não se aplicam à série.
 
-## Como usar no dia a dia
+## Material do canal infantil (histórico)
 
-1. Véspera: `gerar_roteiro.py <dia>`, preencher materiais e falas, separar tudo
-2. Seguir o [checklist de gravação](producao/checklist-gravacao.md)
-3. Editar; gerar Short, thumbnail e descrição com os scripts
-4. Publicar sempre no mesmo horário, marcando "feito para crianças"
-5. Preencher a linha do dia no [controle de postagem](producao/controle-postagem.md)
-6. Domingo: fazer a revisão semanal e ajustar a semana seguinte
+Formato anterior, com criança real. Mantido para referência:
+
+- [Plano de 30 dias](agosto) e [roteiros dos dias 1 a 7](roteiros)
+- [Kit de produção](producao): [checklist](producao/checklist-gravacao.md), [metadados](producao/modelo-metadados.md), [thumbnail](producao/padrao-thumbnail.md), [compliance infantil](producao/compliance.md)
+- [Controle de postagem](producao/controle-postagem.md) — este continua servindo para a série

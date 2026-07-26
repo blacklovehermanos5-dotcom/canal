@@ -9,6 +9,7 @@ Repositório com o plano, os roteiros e o kit de produção do canal.
 | [`agosto`](agosto) | Plano de 30 dias: nicho, estrutura do canal, calendário completo e caminhos de monetização |
 | [`roteiros/`](roteiros) | Roteiros bloco a bloco dos vídeos, com timecodes, planos de câmera, corte do Short e metadados |
 | [`producao/`](producao) | Kit operacional: checklist de gravação, metadados, thumbnail, compliance e controle de postagem |
+| [`automacao/`](automacao) | Scripts que geram roteiro, thumbnail, Short e descrição |
 
 ## Roteiros prontos
 
@@ -37,11 +38,24 @@ Dois pontos do `compliance.md` afetam o plano inteiro:
 1. **Vídeo marcado como "feito para crianças" perde comentários, anúncios personalizados, telas finais e membros.** O RPM cai bastante, o que desloca a monetização do AdSense para afiliados e patrocínio direto.
 2. **Criança que atua regularmente em conteúdo monetizado pode exigir alvará judicial no Brasil**, com regras de jornada e de reserva de parte dos ganhos. Vale consultar antes de a receita começar.
 
+## Automação
+
+Os scripts em [`automacao/`](automacao/README.md) cobrem a parte repetitiva:
+
+```bash
+python3 automacao/gerar_roteiro.py 12                    # esqueleto do roteiro
+./automacao/cortar_short.sh video.mp4 3:45 4:10          # Short em 9:16
+python3 automacao/gerar_thumbnail.py foto.jpg "TEXTO"    # thumbnail 1280x720
+python3 automacao/gerar_metadados.py roteiros/dia-12*.md # descrição com capítulos
+```
+
+O que **não** automatizar (e por quê) está no fim do [README da automação](automacao/README.md#o-que-não-automatizar) — resumo: automatize a embalagem, nunca a atuação.
+
 ## Como usar no dia a dia
 
-1. Abrir o roteiro do dia e separar os materiais na véspera
+1. Véspera: `gerar_roteiro.py <dia>`, preencher materiais e falas, separar tudo
 2. Seguir o [checklist de gravação](producao/checklist-gravacao.md)
-3. Editar, cortar o Short marcado no roteiro, montar a thumbnail pelo template
+3. Editar; gerar Short, thumbnail e descrição com os scripts
 4. Publicar sempre no mesmo horário, marcando "feito para crianças"
 5. Preencher a linha do dia no [controle de postagem](producao/controle-postagem.md)
 6. Domingo: fazer a revisão semanal e ajustar a semana seguinte

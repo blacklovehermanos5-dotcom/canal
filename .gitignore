@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+
+# Material bruto e exportado — não versionar vídeo e imagem pesada
+*.mp4
+*.mov
+*.jpg
+*.jpeg
+*.png
+!producao/exemplos/*.png

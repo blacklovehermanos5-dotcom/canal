@@ -1,0 +1,9 @@
+# material bruto e saída dos scripts — pesado demais para o git
+videos/
+frames/
+thumbs/
+shorts/
+
+__pycache__/
+*.pyc
+.DS_Store
